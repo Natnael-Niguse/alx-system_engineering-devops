@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#Bash script that displays the content of the file /etc/passwd
+
+if [ ! -f "/etc/passwd" ]; then
+  echo "Error: /etc/passwd file not found."
+  exit 1
+fi
+
+while IFS=":" read -r line; do
+  username=$(echo "$line" | cut -d: -f1)
+  uid=$(echo "$line" | cut -d: -f3)
+  home=$(echo "$line" | cut -d: -f6)
+  echo "$username:$uid:$home"
+done < "/etc/passwd"
