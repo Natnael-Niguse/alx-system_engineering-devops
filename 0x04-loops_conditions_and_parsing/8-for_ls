@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Write a Bash script that loops for files
+
+for file in *;do
+	if [[ ! "$file" == .* ]]; then
+		echo "$file"
+	fi
+done
