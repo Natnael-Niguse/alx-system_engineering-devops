@@ -5,6 +5,7 @@ if [ ! -f "/etc/passwd" ]; then
   exit 1
 fi
 
-while IFS=":" read -r username _ uid _ _ home shell; do
-  echo "The user $username is part of the $uid gang, lives in $home and rides $shell. $uid's place is protected by the passcode x, more info about the user here: $username"
+# Read and display the content of /etc/passwd using while loop and IFS
+while IFS=":" read -r username _ uid gid _ home shell; do
+  echo "The user $username is part of the $gid gang, lives in $home and rides $shell. $uid's place is protected by the passcode x, more info about the user here: $uid INFO"
 done < "/etc/passwd"
