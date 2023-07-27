@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Check if /etc/passwd exists
+if [ ! -f "/etc/passwd" ]; then
+  echo "Error: /etc/passwd file not found."
+  exit 1
+fi
+
+while IFS=":" read -r username _ uid _ _ home shell; do
+  echo "The user $username is part of the $uid gang, lives in $home and rides $shell. $uid's place is protected by the passcode x, more info about the user here: $username"
+done < "/etc/passwd"
