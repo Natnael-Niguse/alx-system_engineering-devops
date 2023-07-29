@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Get the PIDs of processes whose names contain the word "bash"
+
+pids=$(pgrep -f "bash")
+
+script_pid=$$
+
+for pid in $pids; do
+  if [ $pid -ne $script_pid ]; then
+    process_name=$(< "/proc/$pid/comm")
+    echo "$pid $process_name"
+  fi
+done
