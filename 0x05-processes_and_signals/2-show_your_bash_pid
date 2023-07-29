@@ -2,4 +2,4 @@
 # Display lines containing the word "bash"
 # shellcheck disable=SC2009
 
-ps -u | grep 'bash'
+ps aux | grep bash | grep -v grep
