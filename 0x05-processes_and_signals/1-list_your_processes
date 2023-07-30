@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Use ps aux directly and format the output
 # Use ps aux directly and format the output
-ps -u
+ps auxf
