@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 # Some code and operations
-PID_7_HIGHLANDER=$(pgrep -f "7-highlander")
+PID_7_HIGHLANDER="7-highlander"
 
-kill -SIGKILL "$PID_7_HIGHLANDER"
+kill -SIGKILL "$(pgrep -f "$PID_7_HIGHLANDER")"
