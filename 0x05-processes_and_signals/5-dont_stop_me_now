@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
 # Find the PID of the '4-to_infinity_and_beyond' process
-PID=$(pgrep "4-to_infinity_and_beyond")
+PID=$(pgreip "4-to_infinity_and_beyond")
 
-if [ -z "$PID" ]; then
-    echo "Process '4-to_infinity_and_beyond' is not running."
-else
-    # Send SIGTERM to the process
-    kill "$PID"
-fi
+kill "$PID"
