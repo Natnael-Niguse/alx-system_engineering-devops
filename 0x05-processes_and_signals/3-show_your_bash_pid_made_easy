@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
-# Get the PIDs of processes whose names contain the word "bash"
-pids=$(grep -l "bash" /proc/*/comm 2>/dev/null | cut -d '/' -f 3)
-
 # Get the PID of the current script
 script_pid=$$
 
+# Get the PIDs of processes whose names contain the word "bash" and exclude the script's PID
+pids=$(find /proc -maxdepth 1 -type d -name '[0-9]*' -exec grep -qs "bash" {}/comm \; -print 2>/dev/null | grep -v "$script_pid")
+
 # Display the PID and process name of each running bash process
 for pid in $pids; do
-    # Skip the PID of the current script
-    if [ $pid -ne $script_pid ]; then
-        # Check if the /proc/PID/comm file exists before reading from it
-        if [ -f "/proc/$pid/comm" ]; then
-            process_name=$(< "/proc/$pid/comm")
-            echo "$pid $process_name"
-        fi
+    # Extract just the numeric part of the path to get the PID
+    pid=$(basename "$pid")
+
+    # Check if the /proc/PID/comm file exists before reading from it
+    if [ -f "/proc/$pid/comm" ]; then
+        process_name=$(< "/proc/$pid/comm")
+        echo "$pid $process_name"
     fi
 done
