@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+function terminate_handler() {
+  echo "I am invincible!!!"
+}
+
+# Trap SIGTERM signal
+trap terminate_handler SIGTERM
+
+while true; do
+  echo "To infinity and beyond indefinitely"
+  sleep 2
+done
