@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-
-# Get the process list in a user-oriented format and show process hierarchy
-ps aux
+# Use ps aux directly and format the output
+# Use ps aux directly and format the output
+ps -u
