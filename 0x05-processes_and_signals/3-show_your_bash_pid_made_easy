@@ -6,14 +6,14 @@ pids=$(grep -l "bash" /proc/*/comm 2>/dev/null | cut -d '/' -f 3)
 # Get the PID of the current script
 script_pid=$$
 
-# Display the PID and process name of each bash process
+# Display the PID and process name of each running bash process
 for pid in $pids; do
     # Skip the PID of the current script
     if [ $pid -ne $script_pid ]; then
-        # Get the process name from /proc
-        process_name=$(< "/proc/$pid/comm")
-        echo "$pid $process_name"
+        # Check if the /proc/PID/comm file exists before reading from it
+        if [ -f "/proc/$pid/comm" ]; then
+            process_name=$(< "/proc/$pid/comm")
+            echo "$pid $process_name"
+        fi
     fi
 done
-
-# End of the script
