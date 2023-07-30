@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Stop the 4-to_infinity_and_beyond process
+
+pattern="4-to_infinity_and_beyond"
+
+# Use pkill to stop processes matching the pattern
+pkill -f "$pattern"
