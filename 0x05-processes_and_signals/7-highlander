@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#kill other
 
 function terminate_handler() {
   echo "I am invincible!!!"
