@@ -3,6 +3,8 @@
 # Find the PID of the '4-to_infinity_and_beyond' process
 pids=$(pgrep -x "4-to_infinity_and_beyond")
 
-if [ "$pids" != "$$" ]; then
-	kill "$pids"
-fi
+for p in $pids; do
+  if [ "$p" != "$$" ]; then
+	kill "$p"
+  fi
+done
