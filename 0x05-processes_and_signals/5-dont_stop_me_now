@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
 # Find the PID of the '4-to_infinity_and_beyond' process
-PID=$(pgrep -x "4-to_infinity_and_beyond")
+pids=$(pgrep -x "4-to_infinity_and_beyond")
 
-if [ -n "$PID" ]; then
-  echo "Terminating process with PID: $PID"
-  kill "$PID"
-else
-  echo "Process '4-to_infinity_and_beyond' not found."
+if [ "$pids" != "$$" ]; then
+	kill "$pids"
 fi
