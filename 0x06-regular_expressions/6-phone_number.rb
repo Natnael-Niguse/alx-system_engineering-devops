@@ -10,7 +10,7 @@ end
 input_string = ARGV[0]
 
 # Define the regular expression pattern to match "t" with 2 to 5 repetitions between "h" and "n"
-pattern = /^/d{10}$/
+pattern = /^/d{10,10}$/
 
 # Perform the regex scan on the input string
 matches = input_string.scan(pattern)
