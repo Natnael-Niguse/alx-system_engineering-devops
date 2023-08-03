@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#ping usage
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 {IP_ADDRESS}"
+    exit 1
+fi
+
+ip_address="$1"
+
+echo "PING $ip_address ($ip_address) 56(84) bytes of data."
+
+ping -c 5 "$ip_address"
+
+exit 0
