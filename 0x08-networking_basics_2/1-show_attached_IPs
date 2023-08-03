@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Use 'ip' command to list all IPv4 addresses
+ips=$(ifconfig | grep -oP 'inet \K[\d.]+')
+
+# Print each IP
+for ip in $ips; do
+    echo $ip
+done
