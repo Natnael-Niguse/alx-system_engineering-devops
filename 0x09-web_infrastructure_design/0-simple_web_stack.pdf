@@ -1,0 +1,53 @@
+ALX Project Web infrastructure design  
+
+Task 0. Definitions and Explanations 
+
+1. What is a server 
+
+A server is a computer hardware or software system that provides services, resources or functionality to other computers or users over a network. 
+
+2. What is the role of the domain name 
+
+The domain name serves as a human-readable address that translates into the IP address of a server on the internet. It provides an easy way for users to access websites, email servers, and other online resources without needing to remember numeric IP addresses. 
+
+3. What type of DNS record www is in www.foobar.com 
+
+It is a ‘cname’. 
+
+4. What is the role of the web server 
+The web server stores and serves web content, such as web pages, images, and files, in response to requests from internet users' browsers. It processes incoming requests, retrieves the requested content, and sends it back to the user's browser, allowing people to access and interact with websites and online resources. 
+
+5. What is the role of the application server 
+
+The application server executes and manages the business logic, data processing, and application functionality of software applications. It processes user requests, interacts with databases and services, and generates dynamic content to be displayed to users, enabling the core functionality of the application to work effectively. 
+
+6. What is the role of the database 
+
+The database stores and manages structured data in an organized manner. It allows for efficient data retrieval, storage, and manipulation. Applications can interact with the database to store and retrieve information, enabling data-driven functionality and ensuring data integrity and persistence. 
+
+7. What is the server using to communicate with the computer of the user requesting the website 
+
+The server communicates through HTTP protocol. 
+
+Explain what the issues 
+
+	A. SPOF (Single Point Of Failure) 
+
+A single point of failure refers to a component in a system, such as a server hosting web, application, or database service, that if it fails, can cause the entire system to stop functioning. For this web infrastructure 
+
+	DNS Server Failure 
+
+Web Server (Nginx) Failure 
+
+Application Server (App Server) Failure 
+
+Database Server (MySQL) Failure 
+B. Downtime when maintenance needed (like deploying new code web server needs       to be restarted) 
+
+When maintenance tasks such as deploying new code or updates are required, the web server (Nginx) needs to be restarted. During this restart process, the website might be temporarily unavailable to users. This downtime can affect user access and disrupt their interactions with the website. 
+
+C. Cannot scale if too much incoming traffic 
+
+ 
+
+With a single-server setup, there's a limitation to how much incoming traffic the infrastructure can handle. If the website experiences a sudden surge in traffic the server may struggle to handle the load. This can lead to slow performance, unresponsive pages, or even crashes. 
