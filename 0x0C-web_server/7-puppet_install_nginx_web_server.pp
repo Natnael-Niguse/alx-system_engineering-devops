@@ -1,21 +1,23 @@
-# automating my work
-
+#install and config the nginx
 package { 'nginx':
   ensure => installed,
-}
-
-file_line { 'install':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-enabled/default',
-  after  => 'listen 80 default_server;',
-  line   => 'rewrite ^/redirect_me https://www.github.com/ethiopro permanent;'
+  name   => 'nginx',
 }
 
 file { '/var/www/html/index.html':
   content => 'Hello World!',
+  path    => '/var/www/html/index.html'
+}
+
+file_line { 'title':
+  ensure   => present,
+  path     => '/etc/nginx/sites-available/default',
+  after    => 'server_name _;',
+  line     => 'rewrite ^/redirect_me https://github.com/ethiopro permanent;',
+  multiple => true
 }
 
 service { 'nginx':
   ensure  => running,
-  require => package['nginx'],
+  require => Package['nginx'],
 }
