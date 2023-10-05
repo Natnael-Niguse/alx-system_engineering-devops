@@ -1,5 +1,4 @@
-
-#!/usr/bin bash
+#!/usr/bin/env bash
 #package list
 
 # Update the package list
@@ -12,13 +11,12 @@ sudo apt-get install -y nginx
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # Configure the redirect
-string_for_redirect="server_name _;\n\trewrite ^/redirect_me https://github.com/ethiopro permanent;"
-sudo sed -i "s#server_name _;#$string_for_redirect#" /etc/nginx/sites-enabled/default
+string_for_redirect="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/ethiopro permanent;"
+sudo sed -i "s/server_name _;/$string_for_redirect/" /etc/nginx/sites-enabled/default
 
 # Create a custom 404 error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-sudo sed -i "server_name _;#a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
-
+sudo sed -i '/server_name _;/a add_header X-Served-By $HOSTNAME;' /etc/nginx/sites-enabled/default
 sudo nginx -t
 
 # Restart Nginx to apply the changes
