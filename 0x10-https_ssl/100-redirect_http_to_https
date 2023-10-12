@@ -1,12 +1,4 @@
-#!/usr/bin/env bash
-#install required packages
-sudo apt-get install -y haproxy
-
-echo "ENABLE=1" >> /etc/default/haproxy
-mv /etc/haproxy/haproxy.cfg{,.orginal}
-touch /etc/haproxy/haproxy.cfg
-
-printf %s "global
+global
         log 127.0.0.1 local0 notice
         maxconn 2000
         user haproxy
@@ -33,13 +25,14 @@ frontend http
         mode http
         bind 0:80
         default_backend servers
+
+frontend www-https
+        bind 0.0.0.0:443 ssl crt /etc/letsencrypt/live/www.ethiopro.tech/www.ethiopro.tech.pem
 backend servers
         timeout connect 3000
         timeout server  30000
         balance roundrobin
         default-server init-addr last
-        server web1 54.164.28.87:80 check
-        server web2 100.26.164.50:80 check
-" >> /etc/haproxy/haproxy.cfg
-
-sudo service haproxy restart
+        redirect scheme https if !{ ssl_fc }
+        server 206037-web-01 54.164.28.87:80 check
+        server 206037-web-02 100.26.164.50:80 check
