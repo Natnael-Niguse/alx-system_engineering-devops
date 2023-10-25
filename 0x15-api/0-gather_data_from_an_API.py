@@ -6,6 +6,7 @@ import sys
 
 base_url = 'https://jsonplaceholder.typicode.com/'
 
+
 def do_request():
     '''Performs request'''
     if len(sys.argv) < 2:
@@ -37,10 +38,13 @@ def do_request():
             completed.append(todo)
             titles.append(todo.get('title'))
 
-    print('Employee ' + user.get('name') + ' is done with tasks({}/{}):'.format(len(completed), len(user_todos)))
+    print('Employee ' + user.get('name') +
+          ' is done with tasks({}/{}):'
+          .format(len(completed), len(user_todos)))
 
     for title in titles:
         print('\t' + title)
+
 
 if __name__ == '__main__':
     do_request()
