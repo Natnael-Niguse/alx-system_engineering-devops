@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-'''Reads todo list from api for employee id passed'''
+'''todo list from api for employee id passed'''
 
 import requests
 import sys
 
 base_url = 'https://jsonplaceholder.typicode.com/'
-
 
 def do_request():
     '''Performs request'''
@@ -20,31 +19,25 @@ def do_request():
         sys.exit(1)
 
     response = requests.get(base_url + 'users/' + eid)
-    response2 = requests.get(base_url + 'todos/')
-
+    if response.status_code == 404:
+        return print('User id not found')
+    elif response.status_code != 200:
+        return print('Error: status_code:', response.status_code)
     user = response.json()
-    todos = response2.json()
-    user_todos = []
+    
+    response = requests.get(base_url + 'todos/')
+    if response.status_code != 200:
+        print('Error: status_code:', response.status_code)
+        sys.exit(1)
+    todos = response.json()
 
-    for todo in todos:
-        if todo.get('userId') == user.get('id'):
-            user_todos.append(todo)
-
-    completed = []
-    titles = []
-
-    for todo in user_todos:
-        if todo.get('completed'):
-            completed.append(todo)
-            titles.append(todo.get('title'))
-
-    print('Employee ' + user.get('name') +
-          ' is done with tasks({}/{}):'
-          .format(len(completed), len(user_todos)))
-
-    for title in titles:
-        print('\t' + title)
-
+    user_todos = [todo for todo in todos if todo.get('userId') == user.get('id')]
+    completed = [todo for todo in user_todos if todo.get('completed')]
+    print('Employee', user.get('name'),
+            'is done with tasks({}/{}):'
+            .format(len(completed), len(user_todos)))
+    [print('\t', todo.get('title')) for todo in completed]
 
 if __name__ == '__main__':
     do_request()
+
