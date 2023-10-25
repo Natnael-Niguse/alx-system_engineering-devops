@@ -6,6 +6,7 @@ import sys
 
 base_url = 'https://jsonplaceholder.typicode.com/'
 
+
 def do_request():
     '''Performs request'''
     if len(sys.argv) < 2:
@@ -24,20 +25,21 @@ def do_request():
     elif response.status_code != 200:
         return print('Error: status_code:', response.status_code)
     user = response.json()
-    
     response = requests.get(base_url + 'todos/')
     if response.status_code != 200:
         print('Error: status_code:', response.status_code)
         sys.exit(1)
     todos = response.json()
 
-    user_todos = [todo for todo in todos if todo.get('userId') == user.get('id')]
-    completed = [todo for todo in user_todos if todo.get('completed')]
+    user_todos = [todo for todo in todos
+                  if todo.get('userId') == user.get('id')]
+    completed = [todo for todo in user_todos
+                 if todo.get('completed')]
     print('Employee', user.get('name'),
-            'is done with tasks({}/{}):'
-            .format(len(completed), len(user_todos)))
+          'is done with tasks({}/{}):'
+          .format(len(completed), len(user_todos)))
     [print('\t', todo.get('title')) for todo in completed]
+
 
 if __name__ == '__main__':
     do_request()
-
