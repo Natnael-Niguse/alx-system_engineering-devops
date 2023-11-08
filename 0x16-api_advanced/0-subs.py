@@ -1,28 +1,15 @@
 #!/usr/bin/python3
+'''Get number of reddit channel subscribers'''
 import requests
+
+BASE_URL = 'http://reddit.com/r/{}/about.json'
 
 
 def number_of_subscribers(subreddit):
-    # URL of the Reddit API for the subreddit
-    url = f'https://www.reddit.com/r/{subreddit}/about.json'
-
-    # Set a custom User-Agent to identify your application
-    headers = {'User-Agent': 'MyRedditApp/1.0'}
-
-    try:
-        # Make the API request
-        response = requests.get(url, headers=headers, allow_redirects=False)
-
-        # Check if the request was successful
-        if response.status_code == 200:
-            data = response.json()
-            subscribers = data['data']['subscribers']
-
-            return subscribers
-        else:
-            print(f"Status code: {response.status_code}")
-
-    except requests.exceptions.MissingSchema:
-        print(f"Invalid subreddit: {subreddit}")
-
-    return 0
+    '''Gets number'''
+    headers = {'User-agent': 'Unix:0-subs:v1'}
+    response = requests.get(BASE_URL.format(subreddit),
+                            headers=headers)
+    if response.status_code != 200:
+        return 0
+    return response.json().get('data', {}).get('subscribers', 0)
