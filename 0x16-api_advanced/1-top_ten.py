@@ -10,7 +10,7 @@ def top_ten(subreddit):
     '''Get top'''
     headers = {'User-agent': 'Unix:0-subs:v1'}
     response = requests.get(BASE_URL.format(subreddit),
-                            headers=headers)
+                            headers=headers, allow_redirects=False)
     data = response.json().get('data', {}).get('children', {})
     if response.status_code != 200 or not data:
         return print("None")
